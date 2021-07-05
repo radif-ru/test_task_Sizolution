@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+	<meta name="author" content="Radif"/>
+    <meta name="contact" content="mail@radif.ru" />
+    <meta name="copyright" content="© Radif.ru, Django project, 2021." />
+    <title>
+        {% block title %}
+            {{ page_title|title|default:'Sizolution' }}
+        {% endblock %}
+    </title>
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}">
+    {% endblock %}
+    {% block js %}
+
+    {% endblock %}
+</head>
+<body>
+<div class="my-container">
+    {% block container %}
+
+    {% endblock %}
+</div>
+</body>
+</html>
