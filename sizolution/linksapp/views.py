@@ -78,5 +78,6 @@ def correct_url(url: str) -> str:
     :param url: ссылка
     :return:
     """
-    if url[:3] != 'http' or url[:4] != '':
+    if url[:4] != 'http':
         return f'http://{url}'
+    return url
