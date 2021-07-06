@@ -17,17 +17,8 @@ def index(request: HttpRequest) -> HttpResponse:
     3. /structure?link=<ссылка>&tags=html,img То же что и выше,
     но теперь помимо ссылки задается массив тэгов через запятую,
     которые нужно вернуть в ответе
-    4. /check_structure POST запрос вида
-    `{"link": "freestylo.ru", "structure": {"html": 1, "head": 1, "body": 1,
-    "p": 10, "img": 2}}` Который для данный ссылки проверяет структуру html
-    тэгов. В ответ должно приходить `{"is_correct": True}` если все верно и
-    `{"is_correct": False, "difference": {"p": 2, "img": 1}}`  если есть
-    ошибки, где difference - это разница структур.
-    Например, если верная структура - `{"html": 1, "head": 1, "body": 1,
-    "p": 4}` а передавалась структура `{"html": 1, "head": 1, "body": 1,
-    "p": 2, "img": 1}` то разница будет `{"p": 2, "img": 1}`
-    :param request:
-    :return:
+    :param request: запрос от пользователя
+    :return: json данные, возврат ответа пользователю
     """
     if request.GET:
         link = request.GET.get('link', '')
@@ -42,7 +33,20 @@ def index(request: HttpRequest) -> HttpResponse:
     return HttpResponse(json.dumps(data))
 
 
-def check_structure(request):
+def check_structure(request: HttpRequest) -> HttpResponse:
+    """ Блок работы со ссылками
+    4. /check_structure POST запрос вида
+    `{"link": "freestylo.ru", "structure": {"html": 1, "head": 1, "body": 1,
+    "p": 10, "img": 2}}` Который для данный ссылки проверяет структуру html
+    тэгов. В ответ должно приходить `{"is_correct": True}` если все верно и
+    `{"is_correct": False, "difference": {"p": 2, "img": 1}}`  если есть
+    ошибки, где difference - это разница структур.
+    Например, если верная структура - `{"html": 1, "head": 1, "body": 1,
+    "p": 4}` а передавалась структура `{"html": 1, "head": 1, "body": 1,
+    "p": 2, "img": 1}` то разница будет `{"p": 2, "img": 1}`
+    :param request: запрос от пользователя
+    :return: json данные, возврат ответа пользователю
+    """
     if request.method == 'POST':
         form = CheckStructureForm(request.POST)
         if form.is_valid():
@@ -73,10 +77,9 @@ def check_structure(request):
 
 
 def correct_url(url: str) -> str:
-    """
-    Корректировка ссылок
-    :param url: ссылка
-    :return:
+    """ Корректировка ссылок
+    :param url: string исходная ссылка
+    :return: string исправленная ссылка
     """
     if url[:4] != 'http':
         return f'http://{url}'

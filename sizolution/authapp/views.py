@@ -22,8 +22,8 @@ def index(request: HttpRequest) -> HttpResponse:
     в ответ должен прийти {"status": "OK"} если код верный и
     {"status": "Fail"} если код не верный. Можно хранить коды для авторизации
     в коде, не используя базу данных или кэш хранилища для этого
-    :param request:
-    :return: string 6-значный код
+    :param request: запрос от пользователя
+    :return: string 6-значный код или json статус возвращаемый пользователю
     """
     if request.method == 'POST':
         form = SizolutionUserForm(request.POST)
@@ -55,8 +55,7 @@ def index(request: HttpRequest) -> HttpResponse:
 
 
 def correct_num(phone_number: str) -> str:
-    """
-    Функция для корректировки номера
+    """ Функция для корректировки номера
     :param string phone_number: номер, полученный от пользователя
     :return: string исправленный номер
     """
@@ -66,19 +65,17 @@ def correct_num(phone_number: str) -> str:
 
 
 def phone_code_generate(num=6) -> str:
-    """
-    Генерация кода, по умолчанию из 6 символов
-    :param num: int
-    :return: string
+    """ Генерация кода, по умолчанию из 6 символов
+    :param num: int количество символов
+    :return: string сгенерированный код
     """
     return ''.join(choice(ascii_uppercase) for i in range(num))
 
 
 def code_encryption(phone_code: str) -> str:
-    """
-    Генерация хэша с солью
-    :param phone_code: string
-    :return: string
+    """ Генерация хэша с солью
+    :param phone_code: string исходная строка
+    :return: string зашифрованная строка
     """
     salt = 'example_salt'
     hash_phone_code = sha256(f'{salt}{phone_code}'.encode())

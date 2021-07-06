@@ -5,6 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
+from sizolution.settings import FIREFOX_BINARY_PATH
+
 
 def parse_site(url='https://freestylo.ru', tags='') -> dict:
     """ Парсинг html тегов
@@ -14,8 +16,7 @@ def parse_site(url='https://freestylo.ru', tags='') -> dict:
     """
     gecko = os.path.normpath(
         os.path.join(os.path.dirname(__file__), 'geckodriver'))
-    binary = FirefoxBinary(
-        r'C:\Program Files (x86)\Mozilla Firefox\firefox.exe')
+    binary = FirefoxBinary(FIREFOX_BINARY_PATH)
     browser = webdriver.Firefox(firefox_binary=binary,
                                 executable_path=gecko + '.exe')
     # browser = webdriver.Firefox()

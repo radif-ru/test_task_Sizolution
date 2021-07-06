@@ -134,3 +134,8 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 JSON_PATH = 'json'
+
+# Расположение бинарника Firefox, можно использовать другой браузер,
+# соответственно для этого нужно будет скачать необходимый драйвер
+# расположение парсера и драйвера в папке /parsers
+FIREFOX_BINARY_PATH = 'C:\Program Files (x86)\Mozilla Firefox\firefox.exe'
