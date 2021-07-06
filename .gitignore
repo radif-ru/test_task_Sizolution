@@ -28,6 +28,9 @@
 # Миграции
 **/migrations
 
+# Логи от Silenium
+**/geckodriver.log
+
 # Виртуальное окружение проекта
 **/.env
 **/.venv

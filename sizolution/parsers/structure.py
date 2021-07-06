@@ -14,12 +14,14 @@ def parse_site(url='https://freestylo.ru', tags='') -> dict:
     :param tags: str теги, через запятую
     :return: dict словарь тегов
     """
-    gecko = os.path.normpath(
-        os.path.join(os.path.dirname(__file__), 'geckodriver'))
-    binary = FirefoxBinary(FIREFOX_BINARY_PATH)
-    browser = webdriver.Firefox(firefox_binary=binary,
-                                executable_path=gecko + '.exe')
-    # browser = webdriver.Firefox()
+    if __name__ != '__main__':
+        gecko = os.path.normpath(
+            os.path.join(os.path.dirname(__file__), 'geckodriver'))
+        binary = FirefoxBinary(FIREFOX_BINARY_PATH)
+        browser = webdriver.Firefox(firefox_binary=binary,
+                                    executable_path=gecko + '.exe')
+    else:
+        browser = webdriver.Firefox()
     browser.get(url)
     soup = BeautifulSoup(browser.page_source, 'lxml')
     all_tags = {}
@@ -38,5 +40,5 @@ def parse_site(url='https://freestylo.ru', tags='') -> dict:
 
 
 if __name__ == '__main__':
-    parse_site(url='https://freestylo.ru')
+    print(parse_site(url='https://django.radif.ru'))
     print(1)

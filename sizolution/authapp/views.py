@@ -3,7 +3,6 @@ from random import choice
 from string import ascii_uppercase
 from hashlib import sha256
 
-import django.http
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.shortcuts import render
 
