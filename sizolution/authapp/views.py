@@ -72,7 +72,7 @@ def phone_code_generate(num=6) -> str:
 
 
 def code_encryption(phone_code: str) -> str:
-    """ Генерация хэша с солью
+    """ Генерация хеша с солью
     :param phone_code: string исходная строка
     :return: string зашифрованная строка
     """
